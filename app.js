@@ -5,6 +5,7 @@ import cors from "cors";
 import { connectMongoDB } from "./db/mongodbConnection.js";
 import exampleRoute from "./routes/exampleRoute.js";
 import authRoute from "./routes/authRoute.js";
+import swaggerSpecs from "./config/swaggerOptions.js";
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ const PORT = process.env.PORT || 8003;
 
 app.use(cors({ origin: true }));
 app.use(express.json());
+app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
 app.use("/api/v1/example", exampleRoute);
 app.use("/api/v1/auth", authRoute);
